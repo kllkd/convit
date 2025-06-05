@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Convite Especial</title>
   <style>
     body {
@@ -11,6 +11,9 @@
       background: linear-gradient(to right, #ffafbd, #885844);
       font-family: Arial, sans-serif;
       text-align: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative;
     }
 
     h1 {
@@ -50,6 +53,8 @@
 
     .buttons {
       margin-top: 50px;
+      position: relative;
+      height: 200px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -68,6 +73,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
+      z-index: 2;
     }
 
     .yes {
@@ -78,12 +85,12 @@
     .no {
       background-color: #dc3545;
       color: white;
-      position: relative;
+      position: absolute;
     }
 
     @media (max-width: 600px) {
       h1 {
-        font-size: 1.8em;
+        font-size: 2em;
         padding: 0 10px;
       }
 
@@ -100,6 +107,10 @@
         width: 80%;
         font-size: 16px;
       }
+
+      .buttons {
+        height: 250px;
+      }
     }
   </style>
 </head>
@@ -108,11 +119,9 @@
   <h1>Quer sair comigo? 💖</h1>
 
   <div class="photo-heart-container">
-    <img src="https://i.imgur.com/7ZkUsSz.jpeg" alt="Sua Foto" class="circle-photo">
-
+    <img src="503754958_18332375467163566_9079411870322388007_n.jpg" alt="Sua Foto" class="circle-photo">
     <div class="heart-icon">❤️</div>
-
-    <img src="https://i.imgur.com/bEtpnRp.png" alt="Foto Dela" class="circle-photo">
+    <img src="Captura de tela 2025-06-05 084249.png" alt="Foto Dela" class="circle-photo">
   </div>
 
   <div class="buttons">
@@ -124,17 +133,27 @@
     const noBtn = document.getElementById("noBtn");
 
     function aceitar() {
-      // O link do WhatsApp funciona perfeitamente para compartilhar
       window.location.href = "https://wa.me/5511992569407?text=Eu%20aceito!";
     }
 
-    // Lógica para o botão "Não" que se move
-    noBtn.addEventListener("mouseover", () => {
-      const i = Math.floor(Math.random() * (window.innerWidth - noBtn.clientWidth));
-      const j = Math.floor(Math.random() * (window.innerHeight - noBtn.clientHeight));
-      noBtn.style.position = "absolute";
-      noBtn.style.left = i + "px";
-      noBtn.style.top = j + "px";
+    function moverBotao() {
+      const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+    }
+
+    // Desktop (mouse)
+    noBtn.addEventListener("mouseover", moverBotao);
+
+    // Celular (touch)
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault(); // impede o clique
+      moverBotao();
     });
   </script>
 
