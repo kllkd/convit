@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Convite Especial</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #ffafbd, #885844);
+      font-family: Arial, sans-serif;
+      text-align: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    h1 {
+      margin-top: 50px;
+      color: #fff;
+      font-size: 2.5em;
+    }
+
+    .photo-heart-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      gap: 20px;
+    }
+
+    .circle-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+    }
+
+    .heart-icon {
+      font-size: 60px;
+      color: red;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .buttons {
+      margin-top: 50px;
+      position: relative; /* Mantém o posicionamento relativo para os botões absolutos */
+      height: 200px; /* Garante espaço para o botão "Não" se mover dentro */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px; /* Espaço entre os botões */
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 200px;
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .yes {
+      background-color: #28a745;
+      color: white;
+      /* Ajusta a posição inicial do botão "Sim" para dar espaço ao "Não" se ele tiver position absolute */
+      top: 0;
+    }
+
+    .no {
+      background-color: #dc3545;
+      color: white;
+      position: absolute; /* Necessário para o botão "fugir" */
+      top: 70px; /* Ajusta a posição inicial para ficar abaixo do "Sim" */
+      left: 50%;
+      transform: translateX(-50%); /* Centraliza horizontalmente */
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+        padding: 0 10px;
+      }
+
+      .circle-photo {
+        width: 80px;
+        height: 80px;
+      }
+
+      .heart-icon {
+        font-size: 40px;
+      }
+
+      .btn {
+        width: 80%;
+        font-size: 16px;
+      }
+
+      .buttons {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Quer sair comigo? 💖</h1>
+
+  <div class="photo-heart-container">
+    <img src="WhatsApp Image 2025-06-20 at 13.33.17 (1).jpeg" alt="Sua Foto" class="circle-photo">
+    <div class="heart-icon">❤️</div>
+    <img src="503754958_18332375467163566_9079411870322388007_n (1).jpg" alt="Foto Dela" class="circle-photo">
+  </div>
+
+  <div class="buttons">
+    <button class="btn yes" onclick="aceitar()">Sim ❤️</button>
+    <button class="btn no" id="noBtn">Não 😢</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+
+    function aceitar() {
+      window.location.href = "https://wa.me/5511992569407?text=Eu%20aceito!";
+    }
+
+    function moverBotao() {
+      const parentRect = noBtn.parentElement.getBoundingClientRect();
+      const maxX = parentRect.width - noBtn.offsetWidth - 20;
+      const maxY = parentRect.height - noBtn.offsetHeight - 20;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+    }
+
+    // Desktop (mouse)
+    noBtn.addEventListener("mouseover", moverBotao);
+
+    // Celular (touch)
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moverBotao();
+    });
+  </script>
+
+</body>
+</html>
